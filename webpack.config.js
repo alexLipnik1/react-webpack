@@ -21,7 +21,7 @@ module.exports = {
     loaders: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
       { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.scss$/, loader: 'style-loader!css-loader?modules!sass-loader' }
+      { test: /\.scss$/, loader: 'style-loader!css-loader?modules&localIdentName=[path][name]__[local]--[hash:base64:5]!sass-loader' }
     ]
   },
 
