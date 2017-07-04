@@ -1,3 +1,10 @@
+@mixin flex-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 html, body, #root {
   padding: 0;
   margin: 0;
@@ -7,4 +14,21 @@ html, body, #root {
   position: relative;
   height: 100%;
   width: 100%;
+  @include flex-center;
+}
+
+.clientDetails {
+  padding: 5vmin;
+  width: 80%;
+  height: 100%;
+  @include flex-center;
+  .client{
+    width: 90%;
+    height: 100%;
+  }
+}
+
+.paymant {
+  padding: 5vmin;
+  @include flex-center;
 }
