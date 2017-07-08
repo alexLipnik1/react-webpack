@@ -7,33 +7,39 @@ $total_input_size: 100px;
   align-items: center;
 }
 
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+
 html, body, #root {
   padding: 0;
   margin: 0;
+  font-family: 'Indie Flower', cursive;
   height: 100%;
 }
 .container {
+  background: #e1f3ff;
   position: relative;
   height: 100%;
   width: 100%;
-  padding: 5px;
+  padding: 10px;
   @include flex-center;
 }
 
 .clientDetails {
-  // border: 1.5px solid silver;
-  padding: 5vmin;
-  width: 80%;
+  border-top: 2px groove  silver;
+  border-bottom: 2px groove silver;
+  background: #f5f5ff;
+  padding: 10px;
+  width: 85%;
   height: 100%;
   @include flex-center;
-  .client{
-    width: 90%;
-    height: 100%;
+  > * {
+    width: 70%;
   }
 }
 
 .payment {
-  padding: 5px;
+  padding: 30px;
+  // background: #f5f5ff;
   @include flex-center;
   .line {
     > *{
@@ -60,5 +66,16 @@ html, body, #root {
     display: flex;
     align-items: flex-end;
     flex-direction: column;
+  }
+
+  .Submit{
+    border-top: 2px groove silver;
+    @include flex-center;
+    padding: 30px;
+    height: 100%;
+    width: 100%;
+    >*{
+      width: 40%
+    }
   }
 }

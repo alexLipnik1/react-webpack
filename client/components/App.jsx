@@ -95,6 +95,10 @@ export default class App extends React.Component {
               <RB.FormControl type="text" placeholder="" />
             </RB.FormGroup>
           </div>
+
+          <div className={styles.Submit}>
+            <RB.Button bsStyle="primary">submit</RB.Button>
+          </div>
         </div>
       </div>);
   }
