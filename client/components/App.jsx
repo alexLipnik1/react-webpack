@@ -47,7 +47,7 @@ export default class App extends React.Component {
         <div className={styles.payment}>
           <div className={styles.line}>
             <RB.FormGroup controlId="workDays">
-            <RB.ControlLabel>Work days</RB.ControlLabel>{' '}
+            <RB.ControlLabel>Work Days</RB.ControlLabel>{' '}
             <RB.FormControl type="text" placeholder="" />
             </RB.FormGroup>
             <RB.FormGroup controlId="hours">
