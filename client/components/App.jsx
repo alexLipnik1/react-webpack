@@ -8,9 +8,14 @@ import styles from './App.scss';
 
 import {findDOMNode} from 'react-dom';
 
-const paymentBlock = () => {
-  <div>hello</div>
-}
+const PaymentBlock = ({update}) => (
+  <div>
+    <AppInput Id="Work-Days" update={(...args) => update('workDays', ...args)} placeholder="" />
+    <AppInput Id="Hours"     update={(...args) => update('hours', ...args)}    placeholder="" />
+    <AppInput Id="Work-Type" update={(...args) => update('workType', ...args)} placeholder="" />
+    <AppInput Id="Paymant"   update={(...args) => update('payment', ...args)}  placeholder="" />
+  </div>
+);
 
 const AppInput = (props) => (
   <RB.FormGroup controlId={props.Id}>
@@ -40,7 +45,7 @@ export default class App extends React.Component {
     console.log(e.target.value);
     this.setState({
       [key]: e.target.value,
-    })
+    }, () => {console.log(this.state)})
   }
 
   render() {
@@ -64,17 +69,14 @@ export default class App extends React.Component {
       <div className={styles.paymentContainer}>
         <div className={styles.payment}>
           <div className={styles.line}>
-            <AppInput Id="Work-Days" update={e => this.update('workDays', e)} placeholder="" />
-            <AppInput Id="Hours" update={e => this.update('hours', e)} placeholder="" />
-            <AppInput Id="Work-Type" update={e => this.update('workType', e)} placeholder="" />
-            <AppInput Id="Paymant" update={e => this.update('paymant', e)} placeholder="" />
+            <PaymentBlock update={this.update} />
           </div>
         </div>
 
         <div className={styles.TotalPayment}>
           <AppInput Id="Total" update={e => this.update('total', e)} placeholder="" />
-          <AppInput Id="VAT" update={e => this.update('total', e)} placeholder="" />
-          <AppInput Id="Total+VAT" update={e => this.update('total', e)} placeholder="" />
+          <AppInput Id="VAT" update={e => this.update('VAT', e)} placeholder="" />
+          <AppInput Id="Total+VAT" update={e => this.update('total+VAT', e)} placeholder="" />
         </div>
       </div>
 
