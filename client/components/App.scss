@@ -44,46 +44,43 @@ html, body, #root {
   flex-direction: column;
 }
 
-.payment {
+.lines {
   // padding: 10px 0;
-  justify-content: top;
   height: 100%;
   width: 100%;
-  .paymentLabels{
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    > *{
-      // border: 1px solid black;
-    }
-  }
-  .PaymentBlock {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    // border-top: 4px groove  silver;
-    > *{
-      padding: 0 5px;
-    }
+}
+
+
+.paymentBlock, .titles {
+  display: flex;
+
+  margin: 0 -5px;
+
+  // border-top: 4px groove  silver;
+  > * {
+    flex: 1 1 0;
+    margin-left:  5px;
+    margin-right: 5px;
   }
 }
 
-  .TotalPayment {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: column;
-  }
 
-  .Submit{
-    border-top: 2px groove silver;
-    @include flex-center;
-    padding: 30px;
-    height: 100%;
-    width: 100%;
-    >*{
-      width: 50%
-    }
+.totalPayment {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.submit{
+  border-top: 2px groove silver;
+  @include flex-center;
+  padding: 30px;
+  height: 100%;
+  width: 100%;
+  >*{
+    width: 50%
   }
+}

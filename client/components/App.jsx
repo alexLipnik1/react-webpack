@@ -8,21 +8,27 @@ import styles from './App.scss';
 
 import {findDOMNode} from 'react-dom';
 
-const PaymentBlock = ({update}) => (
-  <div className={styles.PaymentBlock}>
-    <AppInput Id="workDays" update={(...args) => update('workDays', ...args)} placeholder="" />
-    <AppInput Id="hours"     update={(...args) => update('hours', ...args)}    placeholder="" />
-    <AppInput Id="workType" update={(...args) => update('workType', ...args)} placeholder="" />
-    <AppInput Id="payment"   update={(...args) => update('payment', ...args)}  placeholder="" />
+
+const PaymentBlock = ({update, values={}}) => (
+  <div className={styles.paymentBlock}>
+    <AppInput update={(...args) => update('workDays', ...args)} value={values.workDays || ''} isNumber />
+    <AppInput update={(...args) => update('hours',    ...args)} value={values.hours || ''}    isNumber />
+    <AppInput update={(...args) => update('workType', ...args)} value={values.workType || ''} />
+    <AppInput update={(...args) => update('payment',  ...args)} value={values.payment || ''}  isNumber />
   </div>
 );
 
 const AppInput = (props) => (
-  <RB.FormGroup controlId={props.Id}>
-    <RB.ControlLabel>{props.flag ? props.Id : ""}</RB.ControlLabel>{' '}
-    <RB.FormControl value={props.value} onChange={props.update} type="text" placeholder={props.placeholder} />
+  <RB.FormGroup>
+    <RB.FormControl
+      value={props.value}
+      onChange={e => props.update(props.isNumber ? parseFloat(e.target.value) : e.target.value)}
+      type={props.isNumber ? "number" : "text"}
+      placeholder={props.placeholder} />
   </RB.FormGroup>
 );
+
+const checkIfEmpty = ({id, ...rest}) => Object.values(rest).reduce((acc, v) => acc || v, false)
 
 export default class App extends React.Component {
   state = {
@@ -32,23 +38,34 @@ export default class App extends React.Component {
     zip: '',
     phone: '',
     contect: '',
-    workDays: '',
-    hours: '',
-    workType: '',
-    payment: '',
+    lines: [ { id: 0 } ],
     totalValue: '',
-    VATValue: '',
-    TotalPlusValue: '',
   }
 
-  update = (key, e) => {
-    console.log(e.target.value);
+  lineId = 1
+
+  updateLine = (lineIndex, key, v) => {
     this.setState({
-      [key]: e.target.value,
-    }, () => {console.log(this.state)})
+      lines: [
+        ...this.state.lines.map(
+          (line, i) => i==lineIndex ? {...line, [key]: v} : line
+        ).filter(checkIfEmpty),
+        { id: this.lineId++ },
+      ]
+    });
   }
+
+  update = (key, v) => {
+    this.setState({
+      [key]: v,
+    })
+  }
+
+
 
   render() {
+    const totalValue = this.state.lines.map(line => line.payment || 0).reduce((acc, v) => acc + v, 0);
+
     return (
     <div className={styles.container}>
       <h1>Invoice order</h1>
@@ -56,38 +73,40 @@ export default class App extends React.Component {
       {/* ~~~~~~~ client ~~~~~~~ */}
 
       <div className={styles.clientDetails}>
-        <AppInput flag="1" Id="Client" update={e => this.update('client', e)} placeholder="Enter client name" />
-        <AppInput flag="1" Id="ID" update={e => this.update('id', e)} placeholder="Enter ID" />
-        <AppInput flag="1" Id="Address" update={e => this.update('address', e)} placeholder="Enter address" />
-        <AppInput flag="1" Id="ZIP" update={e => this.update('zip', e)} placeholder="Enter ZIP" />
-        <AppInput flag="1" Id="Phone" update={e => this.update('phone', e)} placeholder="Enter phone number" />
-        <AppInput flag="1" Id="Contect" update={e => this.update('contect', e)} placeholder="Enter contect" />
+        <AppInput update={e => this.update('client', e)}  placeholder="Enter client name" />
+        <AppInput update={e => this.update('id', e)}      placeholder="Enter ID" />
+        <AppInput update={e => this.update('address', e)} placeholder="Enter address" />
+        <AppInput update={e => this.update('zip', e)}     placeholder="Enter ZIP" />
+        <AppInput update={e => this.update('phone', e)}   placeholder="Enter phone number" />
+        <AppInput update={e => this.update('contect', e)} placeholder="Enter contact" />
       </div>
 
       {/* ~~~~~~~ payment ~~~~~~~ */}
 
       <div className={styles.paymentContainer}>
-        <div className={styles.payment}>
-          <div className={styles.paymentLabels}>
-            <label>Work days</label>
-            <label>Hours</label>
-            <label>Work Type</label>
-            <label>Payment</label>
-          </div>
-          <PaymentBlock update={this.update} />
-          <PaymentBlock update={this.update} />
+
+        <div className={styles.titles}>
+          <div>Work days</div>
+          <div>Hours</div>
+          <div>Work type</div>
+          <div>Payment</div>
+        </div>
+        <div className={styles.lines}>
+        {
+          this.state.lines.map((line, i) => <PaymentBlock key={i} update={(...args) => this.updateLine(i, ...args)} values={line} />)
+        }
         </div>
 
-        <div className={styles.TotalPayment}>
-          <AppInput flag="1" Id="Total" value={this.state.totalValue} update={e => this.update('total', e)} placeholder="" />
-          <AppInput flag="1" Id="VAT" value={this.state.totalValue ? (this.state.totalValue / 100)*17 : '' } update={e => this.update('VAT', e)} placeholder="" />
-          <AppInput flag="1" Id="Total+VAT" value={this.state.totalValue ? (this.state.totalValue / 100)*117 : '' } update={e => this.update('total+VAT', e)} placeholder="" />
+        <div className={styles.totalPayment}>
+          <AppInput Id="Total" value={totalValue} update={e => this.update('total', e)} placeholder="" />
+          <AppInput Id="VAT" value={(totalValue / 100) * 17} update={e => this.update('VAT', e)} placeholder="" />
+          <AppInput Id="Total+VAT" value={(totalValue / 100) * 117} update={e => this.update('total+VAT', e)} placeholder="" />
         </div>
       </div>
 
       {/* ~~~~~~~ submit ~~~~~~~ */}
 
-      <div className={styles.Submit}>
+      <div className={styles.submit}>
         <RB.Button bsStyle="primary" >submit</RB.Button>
       </div>
     </div>);
