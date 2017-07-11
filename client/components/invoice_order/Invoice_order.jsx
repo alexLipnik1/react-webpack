@@ -4,7 +4,7 @@
 import React from 'react';
 
 import * as RB from 'react-bootstrap';
-import styles from './App.scss';
+import styles from './Invoice_order.scss';
 
 import {findDOMNode} from 'react-dom';
 

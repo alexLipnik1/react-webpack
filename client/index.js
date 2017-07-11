@@ -3,6 +3,6 @@
 */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App.jsx';
+import InoviceOrder from './components/invoice_order/Invoice_order.jsx';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<InoviceOrder />, document.getElementById('root'));
