@@ -1,0 +1,53 @@
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin size {
+  height: 100%;
+  width: 90%;
+}
+
+@mixin flex-row{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  > *{
+    border: 2px solid black;
+    flex: 1 1 0;
+    @include flex-center;
+  }
+}
+
+.body {
+  @include flex-center;
+  flex-direction: column;
+  margin: 20px;
+  padding: 10px 0;
+  .container {
+    border: 2px solid black;
+    @include flex-center;
+    @include size;
+    flex-direction: column;
+    paddin: 10px;
+    font-size: 150%;
+
+    .headers {
+      @include flex-row;
+    }
+
+    .invoiceOpend {
+      @include flex-row;
+    }
+
+    .invoiceClosed {
+      @include flex-row;
+    }
+
+    .MoneyTransferd {
+      @include flex-row;
+    }
+  }
+
+}

@@ -30,7 +30,7 @@ const AppInput = (props) => (
 
 const checkIfEmpty = ({id, ...rest}) => Object.values(rest).reduce((acc, v) => acc || v, false)
 
-export default class App extends React.Component {
+export default class Invoice_order extends React.Component {
   state = {
     client: '',
     id: '',
