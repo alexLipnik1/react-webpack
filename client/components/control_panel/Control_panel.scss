@@ -33,21 +33,14 @@
     paddin: 10px;
     font-size: 150%;
 
-    .headers {
+    .line {
       @include flex-row;
     }
+  }
 
-    .invoiceOpend {
-      @include flex-row;
-    }
-
-    .invoiceClosed {
-      @include flex-row;
-    }
-
-    .MoneyTransferd {
-      @include flex-row;
-    }
+  .button {
+    padding: 15px;
+    flex: 1 1 0;
   }
 
 }

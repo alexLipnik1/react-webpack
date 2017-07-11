@@ -84,7 +84,6 @@ export default class Invoice_order extends React.Component {
       {/* ~~~~~~~ payment ~~~~~~~ */}
 
       <div className={styles.paymentContainer}>
-
         <div className={styles.titles}>
           <div>Work days</div>
           <div>Hours</div>
