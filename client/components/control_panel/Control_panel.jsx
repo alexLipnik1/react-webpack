@@ -8,12 +8,12 @@ import {findDOMNode} from 'react-dom';
 const CreateLine = (props) => (
   <div className={styles.line}>
     <div>{props.name}</div>
-    <div>
+    {props.display && <div >
       <input onChange={props.update} type="checkbox" name="sms" defaultChecked={props.sms} />
-    </div>
-    <div>
+    </div>}
+    {props.display && <div>
       <input onChange={props.update} type="checkbox" name="email" defaultChecked={props.email}/>
-    </div>
+    </div>}
   </div>
 );
 
@@ -31,18 +31,16 @@ export default class ContorlPanel extends React.Component {
 
           {
             this.props.lines.map((line, i) =>
-              <CreateLine key={Object.values(line)[0]} name={Object.values(line)[1]}
+              <CreateLine display={false} key={Object.values(line)[0]} name={Object.values(line)[1]}
                 email={Object.values(line)[2]}
                 sms={Object.values(line)[3]} />
               )
           }
-
         </div>
 
         <div className={styles.button}>
           <RB.Button bsStyle="primary">Change</RB.Button>
         </div>
-
     </div>
     );
   }
