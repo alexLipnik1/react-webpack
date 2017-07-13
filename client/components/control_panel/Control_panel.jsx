@@ -8,29 +8,28 @@ import {findDOMNode} from 'react-dom';
 const CreateLine = (props) => (
   <div className={styles.line}>
     <div>{props.name}</div>
-    {props.columns.slice(2).map((c, i) => {
+    {props.line.slice(2).map((c, i) => {
       {
         return (
-           <div key={i}>
-            {console.log(c)}
-            <input onChange={c.update} type="checkbox" defaultChecked={c} />
+          <div key={i}>
+            {<input onChange={c.update} type="checkbox" defaultChecked={c} />}
           </div>
         )}
       })
     }
-
-    {/*
-    {props.display_email && <div>
-      <input onChange={props.update} type="checkbox" name="email" defaultChecked={props.email}/>
-    </div>}
-    {props.display_fax && <div>
-      <input onChange={props.update} type="checkbox" name="fax" defaultChecked={props.fax}/>
-    </div>}*/}
   </div>
 );
 
-const displayCheck = (arr, str) => {
-  return arr.filter(v => str === v)[0] === str;
+const filterObj = (obj, columns) => {
+    var newObj = {};
+    for(var i in obj){
+      for(var j in columns)
+        if(obj[i].hasOwnProperty(columns[j]))
+          newObj.columns[j] = Object.values(obj)[i];
+    }
+    console.log(newObj)
+
+
 }
 
 const findKeyInObj = (arr, str) => {
@@ -38,23 +37,25 @@ const findKeyInObj = (arr, str) => {
 }
 
 export default class ContorlPanel extends React.Component {
+
   render(props) {
     return(
       <div className={styles.body}>
         <div className={styles.container}>
           <div className={styles.line}>
-            <div>Notification</div>
-            {this.props.columns.map((c, i) => {
+            {this.props.columns.slice(1).map((c, i) => {
               return <div key={i}>{c}</div>
             })}
           </div>
-          {console.log(Object.values(this.props.lines)[0])}
+          {filterObj(Object.values(this.props.lines)[0], this.props.columns)}
+
           {
             this.props.lines.map((line, i) =>
               <CreateLine
-                key=           {findKeyInObj(Object.values(line), line.id)}
-                name=          {findKeyInObj(Object.values(line), line.NotificationName)}
-                columns =      {Object.values(line)}/>)
+                key=    {findKeyInObj(Object.values(line), line.id)}
+                name=   {findKeyInObj(Object.values(line), line.NotificationName)}
+                line =  {Object.values(line)}
+                column= {this.props.columns}/>)
           }
         </div>
 

@@ -10,4 +10,4 @@ ReactDOM.render(<ControlPanel lines={[
     {id:0, NotificationName: "invoiceOpend",   email: true,  sms: false, fax: true, mail: true  },
     {id:1, NotificationName: "invoiceClosed",  email: true,  sms: false, fax: true, mail: true },
     {id:2, NotificationName: "MoneyTransferd", email: false, sms: false, fax: true, mail: true },
-]} columns={['sms', 'email', 'fax', 'mail']} />, document.getElementById('root'));
+]} columns={['id', 'NotificationName', '', 'email', 'fax', 'mail']} />, document.getElementById('root'));
