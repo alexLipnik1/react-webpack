@@ -8,15 +8,24 @@ import {findDOMNode} from 'react-dom';
 const CreateLine = (props) => (
   <div className={styles.line}>
     <div>{props.name}</div>
-    {props.display_sms && <div >
-      <input onChange={props.update} type="checkbox" name="sms" defaultChecked={props.sms} />
-    </div>}
+    {props.columns.slice(2).map((c, i) => {
+      {
+        return (
+           <div key={i}>
+            {console.log(c)}
+            <input onChange={c.update} type="checkbox" defaultChecked={c} />
+          </div>
+        )}
+      })
+    }
+
+    {/*
     {props.display_email && <div>
       <input onChange={props.update} type="checkbox" name="email" defaultChecked={props.email}/>
     </div>}
     {props.display_fax && <div>
       <input onChange={props.update} type="checkbox" name="fax" defaultChecked={props.fax}/>
-    </div>}
+    </div>}*/}
   </div>
 );
 
@@ -35,23 +44,17 @@ export default class ContorlPanel extends React.Component {
         <div className={styles.container}>
           <div className={styles.line}>
             <div>Notification</div>
-            {displayCheck(this.props.columns, 'sms') && <div>SMS</div>}
-            {displayCheck(this.props.columns, 'email') && <div>Email</div>}
-            {displayCheck(this.props.columns, 'fax') && <div>Fax</div>}
+            {this.props.columns.map((c, i) => {
+              return <div key={i}>{c}</div>
+            })}
           </div>
-
-          {console.log(displayCheck(this.props.columns, 'sms'))}
+          {console.log(Object.values(this.props.lines)[0])}
           {
             this.props.lines.map((line, i) =>
               <CreateLine
-                display_email={displayCheck(this.props.columns, 'email')}
-                display_sms=  {displayCheck(this.props.columns, 'sms')}
-                display_fax=  {displayCheck(this.props.columns, 'fax')}
-                key=    {findKeyInObj(Object.values(line), line.id)}
-                name=   {findKeyInObj(Object.values(line), line.NotificationName)}
-                email=  {findKeyInObj(Object.values(line), line.email)}
-                sms=    {findKeyInObj(Object.values(line), line.sms)}
-                fax=    {findKeyInObj(Object.values(line), line.fax)} />)
+                key=           {findKeyInObj(Object.values(line), line.id)}
+                name=          {findKeyInObj(Object.values(line), line.NotificationName)}
+                columns =      {Object.values(line)}/>)
           }
         </div>
 
