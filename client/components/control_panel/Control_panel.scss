@@ -4,6 +4,9 @@
   justify-content: center;
 }
 
+
+@import url('<link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">');
+
 @mixin size {
   height: 100%;
   width: 90%;
@@ -20,12 +23,21 @@
   }
 }
 
+html, #root {
+  padding: 0;
+  margin: 0;
+  font-family: 'Merriweather', serif;
+  height: 100%;
+}
+
 .body {
   @include flex-center;
   flex-direction: column;
   margin: 20px;
   padding: 10px 0;
   .container {
+    box-shadow: 3px 3px 10px grey;
+    background: #f9f9ff;
     border: 2px solid black;
     @include flex-center;
     @include size;
