@@ -21,15 +21,17 @@ const CreateLine = (props) => (
 );
 
 const filterObj = (obj, columns) => {
-    var newObj = {};
-    for(var i in obj){
-      for(var j in columns)
-        if(obj[i].hasOwnProperty(columns[j]))
-          newObj.columns[j] = Object.values(obj)[i];
+  var newObj = {};
+
+  for(var i in columns){
+    for(var key in obj) {
+      var value = obj[key];
+      if (key === columns[i]){
+        newObj[key] = value;
+      }
     }
-    console.log(newObj)
-
-
+  }
+  return newObj;
 }
 
 const findKeyInObj = (arr, str) => {
@@ -47,14 +49,16 @@ export default class ContorlPanel extends React.Component {
               return <div key={i}>{c}</div>
             })}
           </div>
-          {filterObj(Object.values(this.props.lines)[0], this.props.columns)}
+
+          {/*console.log(filterObj(Object.values(this.props.lines)[1], this.props.columns))*/}
+          {/*console.log(this.props.lines)*/}
 
           {
-            this.props.lines.map((line, i) =>
+            this.props.lines.map((line) =>
               <CreateLine
                 key=    {findKeyInObj(Object.values(line), line.id)}
                 name=   {findKeyInObj(Object.values(line), line.NotificationName)}
-                line =  {Object.values(line)}
+                line =  {Object.values(filterObj(line, this.props.columns))}
                 column= {this.props.columns}/>)
           }
         </div>
