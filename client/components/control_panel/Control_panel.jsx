@@ -45,8 +45,9 @@ export default class ContorlPanel extends React.Component {
       <div className={styles.body}>
         <div className={styles.container}>
           <div className={styles.line}>
-            {this.props.columns.slice(1).map((c, i) => {
-              return <div key={i}>{c}</div>
+
+            {this.props.columns.map((c, i) => {
+              return <div key={i}>{ c }</div>
             })}
           </div>
 
@@ -58,7 +59,7 @@ export default class ContorlPanel extends React.Component {
               <CreateLine
                 key=    {findKeyInObj(Object.values(line), line.id)}
                 name=   {findKeyInObj(Object.values(line), line.NotificationName)}
-                line =  {Object.values(filterObj(line, this.props.columns))}
+                line =  {Object.values(line)}
                 column= {this.props.columns}/>)
           }
         </div>
