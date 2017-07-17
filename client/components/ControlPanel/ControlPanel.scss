@@ -1,0 +1,32 @@
+
+.container{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	height: 100%;
+}
+
+.type {
+	background: #eee;
+}
+
+.header{
+	display: flex;
+}
+
+.line{
+	display: flex;
+}
+
+.cell, .type, .label {
+	padding: 5px 10px;
+	width: 100px;
+	display: flex;
+	justify-content: center;
+}
+
+.cell:hover {
+	cursor: pointer;
+	background: lighten(yellow, 40%);
+}
